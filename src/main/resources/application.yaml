@@ -1,3 +1,6 @@
 spring:
   application:
     name: 0younge
+
+  profiles:
+    active: local
