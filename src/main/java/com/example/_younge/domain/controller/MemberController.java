@@ -1,15 +1,13 @@
 package com.example._younge.domain.controller;
 
 import com.example._younge.domain.dto.CreateMemberRequest;
+import com.example._younge.domain.dto.GetMemberResponse;
 import com.example._younge.domain.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +22,12 @@ public class MemberController {
         memberService.create(request);
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GetMemberResponse> getOneMember(@PathVariable Long id) {
+
+        return ResponseEntity.ok().body(memberService.getOne(id));
     }
 
 }
