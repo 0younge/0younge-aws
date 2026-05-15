@@ -12,3 +12,9 @@ health check : http://52.78.181.69:8080/actuator/health
 
 ---
 
+## Lv.2 DB 분리 및 보안 연결하기
+
+/actuator/info : http://52.78.181.69:8080/actuator/info
+
+보안 그룹 체이닝 :
+![security group inbound.png](img/security%20group%20inbound.png)
