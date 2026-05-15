@@ -1,16 +1,19 @@
 spring:
+  config:
+    import: aws-parameterstore:/config/0younge/prod/
+
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+
   datasource:
-    url: jdbc:mysql://localhost:3306/{database 이름}
-    username: {user 이름}
-    password: {user password}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-
     open-in-view: false
-
     properties:
       hibernate:
         format_sql: true
@@ -20,7 +23,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health
+        include: health, info
   endpoint:
     health:
       show-details: never
