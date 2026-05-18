@@ -39,9 +39,15 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      # Step 4: 테스트 실행 (CI의 핵심!)
+      - name: Run tests
+        run: ./gradlew test
+        env:
+          SPRING_PROFILES_ACTIVE: local
+
       # Step 5: JAR 빌드
       - name: Build JAR
-        run: ./gradlew bootJar -x test
+        run: ./gradlew bootJar
 
       # Step 6: AWS 자격증명 - OIDC
       - name: Configure AWS credentials
