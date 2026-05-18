@@ -3,4 +3,4 @@ spring:
     name: 0younge
 
   profiles:
-    active: local
+    active: ${SPRING_PROFILES_ACTIVE:local}
