@@ -16,6 +16,14 @@ spring:
         format_sql: true
     open-in-view: false
 
+  cloud:
+    aws:
+      region:
+        static: ap-northeast-2
+
+      s3:
+        bucket: 0younge-s3-bucket
+
 management:
   endpoints:
     web:
