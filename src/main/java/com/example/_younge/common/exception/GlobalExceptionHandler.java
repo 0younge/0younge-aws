@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MemberNotFoundException.class)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(MethodArgumentNotValidException e) {
 
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
@@ -19,6 +19,51 @@ public class GlobalExceptionHandler {
         log.error("[VALIDATION ERROR]", e);
 
         return ResponseEntity.badRequest().body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), message));
+    }
+
+    @ExceptionHandler(MemberNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleMemberNotFoundException(MemberNotFoundException e) {
+
+        log.error("[MEMBER NOT FOUND]", e);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.of(HttpStatus.NOT_FOUND.value(), e.getMessage()));
+    }
+
+    @ExceptionHandler(EmptyImageFileException.class)
+    public ResponseEntity<ErrorResponse> handleEmptyImageFileException(EmptyImageFileException e) {
+
+        log.error("[EMPTY IMAGE FILE]", e);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidImageFileException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidImageFileException(InvalidImageFileException e) {
+
+        log.error("[INVALID IMAGE FILE]", e);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
+    }
+
+    @ExceptionHandler(ProfileImageNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleProfileImageNotFoundException(ProfileImageNotFoundException e) {
+
+        log.error("[PROFILE IMAGE NOT FOUND]", e);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.of(HttpStatus.NOT_FOUND.value(), e.getMessage()));
+    }
+
+    @ExceptionHandler(S3UploadFailedException.class)
+    public ResponseEntity<ErrorResponse> handleS3UploadFailedException(S3UploadFailedException e) {
+
+        log.error("[S3 UPLOAD FAILED]", e);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(ErrorResponse.of(HttpStatus.BAD_REQUEST.value(), e.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
